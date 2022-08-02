@@ -1,17 +1,10 @@
 use gdnative::prelude::*;
-
+use rust_lisp::parse;
 
 /// The HelloWorld "class"
 #[derive(NativeClass)]
 #[inherit(Node)]
 pub struct HelloWorld;
-
-// Function that registers all exposed classes to Godot
-fn init(handle: InitHandle) {
-    // Register the new `HelloWorld` type we just declared.
-    handle.add_class::<HelloWorld>();
-}
-
 
 // You may add any number of ordinary `impl` blocks as you want. However, ...
 impl HelloWorld {
@@ -29,9 +22,20 @@ impl HelloWorld {
     fn _ready(&self, _owner: &Node) {
         // The `godot_print!` macro works like `println!` but prints to the
         // Godot-editor output tab as well.
-        godot_print!("Hello, world!");
+        godot_print!("Hello, world!!!!!!");
+    }
+
+    #[export]
+    fn parse(&self, _owner: &Node, text: String) {
+        let result = parse(&text);
+        godot_print!("{:?}", result)
     }
 }
 
+// Function that registers all exposed classes to Godot
+fn init(handle: InitHandle) {
+    // Register the new `HelloWorld` type we just declared.
+    handle.add_class::<HelloWorld>();
+}
 // Macro that creates the entry-points of the dynamic library.
 godot_init!(init);

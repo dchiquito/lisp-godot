@@ -10,4 +10,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 gdnative = "0.10"
-
+rust-lisp = { git = "https://github.com/dchiquito/rust-lisp", branch = "asyncing" }
