@@ -6,17 +6,24 @@ extends Node2D
 # var b = "text"
 
 onready var invoker = $LispInvoker
+onready var text = $TextEdit
+onready var output_box = $Output
+onready var error_box = $Error
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	invoker.connect("computation_complete", self, "computer_done")
 
+func computer_done(output, error):
+	print("is done!")
+	print(output)
+	print(error)
+	output_box.text = output
+	error_box.text = error
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_Button_pressed():
 	print("pressin")
-	invoker.parse("(")
+	invoker.parse(text.text)
+
